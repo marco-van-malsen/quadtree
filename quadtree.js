@@ -140,7 +140,6 @@ class QuadTree {
 
     for (let p of this.points) {
       if (range.contains(p)) found.push(p);
-
     }
 
     if (this.divided) {

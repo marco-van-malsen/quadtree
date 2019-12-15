@@ -8,35 +8,61 @@
 // For more:
 // https://github.com/CodingTrain/QuadTree
 
-let particles = [];
+var header = 15;
+var particles = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  for (let i = 0; i < 1000; i++) {
-    particles[i] = new Particle(random(width), random(height));
-  }
+  addParticles(50);
 }
 
 function draw() {
+  // background
   background(0);
 
-  let boundary = new Rectangle(width * 0.5, height * 0.5, width, height);
-  let qtree = new QuadTree(boundary, 4);
+  // get current framerate
+  var fpsNow = frameRate();
 
-  for (let p of particles) {
-    p.move();
+  // add more particles if framerate allows
+  if (fpsNow > 60) addParticles(50);
+
+  // show stats in header
+  fill(255);
+  noStroke();
+  textAlign(LEFT, CENTER);
+  text("Particles: " + particles.length, 5, 0.5 * header);
+  textAlign(CENTER, CENTER);
+  text("QUAD-TREE", 0.5 * width, 0.5 * header);
+  textAlign(RIGHT, CENTER);
+  text(int(fpsNow) + " FPS", width - 5, 0.5 * header);
+
+  // setup quad-tree
+  var boundary = new Rectangle(width * 0.5, height * 0.5, width, height);
+  var qtree = new QuadTree(boundary, 4);
+
+  // turn off highlight, randomly move partiacle and add particles to quad-tree
+  for (var p of particles) {
+    p.offScreen();
     p.setHighlight(false);
-    let point = new Point(p.x, p.y, p);
+    p.move();
+    var point = new Point(p.x, p.y, p);
     qtree.insert(point);
   }
 
-  for (let p of particles) {
-    let range = new Circle(p.x, p.y, p.r * 2);
-    let points = qtree.query(range);
-    for (let point of points) {
-      let other = point.userData;
+  // highlight all particles that are overlapping
+  for (var p of particles) {
+    var range = new Circle(p.x, p.y, p.d);
+    var points = qtree.query(range);
+    for (var point of points) {
+      var other = point.userData;
       if (p !== other && p.intersects(other)) p.setHighlight(true);
       p.render();
     }
   }
+}
+
+// detect window resize
+function windowResized() {
+  particles = [];
+  setup();
 }
