@@ -13,8 +13,14 @@ var header = 15;
 var particles;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
   devOrient = deviceOrientation;
+  // if (!devOrient) {
+  createCanvas(windowWidth, windowHeight);
+  // } else if (devOrient = 'landscape') {
+  // createCanvas(windowWidth, windowHeight);
+  // } else {
+  //   createCanvas(windowHeight, windowWidth);
+  // }
   particles = [];
   addParticles(50);
 }
@@ -41,16 +47,18 @@ function draw() {
   text("QUAD-TREE", 0.5 * width, 0.5 * header);
   textAlign(RIGHT, CENTER);
   text(int(fps) + " FPS", width - 5, 0.5 * header);
+  textAlign(CENTER, CENTER);
+  text("Device Orientation=" + devOrient + ", WIDTH=" + width + ", HEIGHT=" + height, 0.5 * width, height - 0.5 * header);
 
   // setup quad-tree
-  var boundary = new Rectangle(width * 0.5, height * 0.5, width, height);
+  var boundary = new Rectangle(0.5 * width, 0.5 * height, width, height - 2 * header);
   var qtree = new QuadTree(boundary, 4);
 
-  // turn off highlight, randomly move partiacle and add particles to quad-tree
+  // turn off highlight, randomly move particle and add particles to quad-tree
   for (var p of particles) {
-    p.offScreen();
     p.setHighlight(false);
     p.move();
+    p.offScreen();
     var point = new Point(p.x, p.y, p);
     qtree.insert(point);
   }

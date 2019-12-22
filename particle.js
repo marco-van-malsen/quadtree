@@ -12,7 +12,6 @@ class Particle {
   constructor(x, y, index) {
     this.y = y;
     this.x = x;
-    this.index = index;
     this.r = 4;
     this.d = this.r * 2;
     this.highlight = false;
@@ -30,7 +29,7 @@ class Particle {
     this.y += random(-1, 1);
   }
 
-  // move  particles to other side of the screen
+  // move particles to other side of the screen
   offScreen() {
     if (this.x < 0) {
       this.x = width - this.r;
@@ -39,8 +38,8 @@ class Particle {
     }
 
     if (this.y < header) {
-      this.y = height - this.r;
-    } else if (this.y > height) {
+      this.y = height - header - this.r;
+    } else if (this.y > height - header) {
       this.y = header + this.r;
     }
   }
@@ -58,9 +57,9 @@ class Particle {
   }
 }
 
+// add number particles at random location
 function addParticles(count) {
   for (let i = 1; i <= count; i++) {
-    var index = particles.length;
-    particles[index] = new Particle(random(width), random(header, height), index);
+    particles[particles.length] = new Particle(random(width), random(header, height));
   }
 }
