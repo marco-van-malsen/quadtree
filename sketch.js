@@ -8,33 +8,16 @@
 // For more:
 // https://github.com/CodingTrain/QuadTree
 
-var alpha = 0; // Orientation around Z axis
-var beta = 0; // Orientation around X axis
-var gamma = 0; // Orientation around Y axis
-
-var devOrient; // device orientation is used at all
 var header = 15; // height for header/footer in number of pixels along Y-axis
 var particles; // array of particles
 
 function setup() {
-  if (window.DeviceOrientationEvent) window.addEventListener('deviceorientation', onOrientationChange);
-
-  devOrient = deviceOrientation;
-  // if (!devOrient) {
   createCanvas(windowWidth, windowHeight);
-  // } else if (devOrient = 'landscape') {
-  // createCanvas(windowWidth, windowHeight);
-  // } else {
-  //   createCanvas(windowHeight, windowWidth);
-  // }
   particles = [];
   addParticles(50);
 }
 
 function draw() {
-  // read device orientation
-  if (devOrient && devOrient != deviceOrientation) setup();
-
   // background
   background(0);
 
@@ -53,8 +36,6 @@ function draw() {
   text("QUAD-TREE", 0.5 * width, 0.5 * header);
   textAlign(RIGHT, CENTER);
   text(int(fps) + " FPS", width - 5, 0.5 * header);
-  textAlign(CENTER, CENTER);
-  text("Device Orientation=" + devOrient + ", alpha=" + alpha + ", beta=" + beta + ", gamma=" + gamma, 0.5 * width, height - 0.5 * header);
 
   // setup quad-tree
   var boundary = new Rectangle(0.5 * width, 0.5 * height, width, height - 2 * header);
@@ -79,16 +60,4 @@ function draw() {
       p.render();
     }
   }
-}
-
-// detect window resize
-function windowResized() {
-  setup();
-}
-
-function onOrientationChange(e) {
-  alpha = e.alpha;
-  beta = e.beta;
-  gamma = e.gamma;
-  println(alpha + " " + beta + " " + gamma);
 }

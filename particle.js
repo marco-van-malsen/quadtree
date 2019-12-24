@@ -38,8 +38,8 @@ class Particle {
     }
 
     if (this.y < header) {
-      this.y = height - header - this.r;
-    } else if (this.y > height - header) {
+      this.y = height - this.r;
+    } else if (this.y > height) {
       this.y = header + this.r;
     }
   }
