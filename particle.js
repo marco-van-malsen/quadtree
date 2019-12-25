@@ -59,7 +59,7 @@ class Particle {
 
 // add number particles at random location
 function addParticles(count) {
-  for (let i = 1; i <= count; i++) {
+  for (var i = 1; i <= count; i++) {
     particles[particles.length] = new Particle(random(width), random(header, height));
   }
 }

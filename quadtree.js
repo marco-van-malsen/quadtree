@@ -49,10 +49,7 @@ class Circle {
   }
 
   contains(point) {
-    // check if the point is in the circle by checking if the euclidean distance of
-    // the point and the center of the circle if smaller or equal to the radius of
-    // the circle
-    let d = Math.pow((point.x - this.x), 2) + Math.pow((point.y - this.y), 2);
+    var d = Math.pow((point.x - this.x), 2) + Math.pow((point.y - this.y), 2);
     return d <= this.rSquared;
   }
 
@@ -102,14 +99,14 @@ class QuadTree {
   }
 
   subdivide() {
-    let x = this.boundary.x;
-    let y = this.boundary.y;
-    let w = this.boundary.w * 0.5;
-    let h = this.boundary.h * 0.5;
-    let ne = new Rectangle(x + w, y - h, w, h);
-    let nw = new Rectangle(x - w, y - h, w, h);
-    let se = new Rectangle(x + w, y + h, w, h);
-    let sw = new Rectangle(x - w, y + h, w, h);
+    var x = this.boundary.x;
+    var y = this.boundary.y;
+    var w = this.boundary.w * 0.5;
+    var h = this.boundary.h * 0.5;
+    var ne = new Rectangle(x + w, y - h, w, h);
+    var nw = new Rectangle(x - w, y - h, w, h);
+    var se = new Rectangle(x + w, y + h, w, h);
+    var sw = new Rectangle(x - w, y + h, w, h);
     this.northeast = new QuadTree(ne, this.capacity);
     this.northwest = new QuadTree(nw, this.capacity);
     this.southeast = new QuadTree(se, this.capacity);
@@ -138,7 +135,7 @@ class QuadTree {
 
     if (!range.intersects(this.boundary)) return found;
 
-    for (let p of this.points) {
+    for (var p of this.points) {
       if (range.contains(p)) found.push(p);
     }
 
