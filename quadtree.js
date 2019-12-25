@@ -69,12 +69,10 @@ class Circle {
     var edges = Math.pow((xDist - w), 2) + Math.pow((yDist - h), 2);
 
     // no intersection
-    if (xDist > (r + w) || yDist > (r + h))
-      return false;
+    if (xDist > (r + w) || yDist > (r + h)) return false;
 
     // intersection within the circle
-    if (xDist <= w || yDist <= h)
-      return true;
+    if (xDist <= w || yDist <= h) return true;
 
     // intersection on the edge of the circle
     return edges <= this.rSquared;
