@@ -49,6 +49,9 @@ class Circle {
   }
 
   contains(point) {
+    // check if the point is in the circle by checking if the euclidean
+    // distance of the point and the center of the circle is smaller or equal
+    // to the radius of the circle
     var d = Math.pow((point.x - this.x), 2) + Math.pow((point.y - this.y), 2);
     return d <= this.rSquared;
   }
