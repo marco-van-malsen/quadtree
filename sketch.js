@@ -8,13 +8,23 @@
 // For more:
 // https://github.com/CodingTrain/QuadTree
 
+var boundary; // boundary where particles may freely roam
 var header = 15; // height for header/footer in number of pixels along Y-axis
 var particles; // array of particles
 
 function setup() {
+  // create canvas
   createCanvas(windowWidth, windowHeight);
+
+  // defaults
+  rectMode(CENTER);
+
+  // define boundary
+  boundary = new Rectangle(0.5 * width, 0.5 * (height + header), width, height - header);
+
+  // add particles
   particles = [];
-  addParticles(50);
+  addParticles(100);
 }
 
 function draw() {
@@ -37,8 +47,10 @@ function draw() {
   textAlign(RIGHT, CENTER);
   text(int(fps) + " FPS", width - 5, 0.5 * header);
 
+  // show boundary (DEBUG ONLY)
+  // boundary.show();
+
   // setup quad-tree
-  var boundary = new Rectangle(0.5 * width, 0.5 * height, width, height - 2 * header);
   var qtree = new QuadTree(boundary, 4);
 
   // turn off highlight, randomly move particle and add particles to quad-tree

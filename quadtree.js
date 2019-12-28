@@ -18,10 +18,17 @@ class Point {
 
 class Rectangle {
   constructor(x, y, w, h) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
+    // rectangle
+    this.x = x; // center X
+    this.y = y; // center Y
+    this.w = w; // full width
+    this.h = h; // full height
+
+    // edges
+    this.l = this.x - 0.5 * this.w;
+    this.r = this.x + 0.5 * this.w;
+    this.u = this.y - 0.5 * this.h;
+    this.d = this.y + 0.5 * this.h;
   }
 
   contains(point) {
@@ -36,6 +43,13 @@ class Rectangle {
       range.x + range.w < this.x - this.w ||
       range.y - range.h > this.y + this.h ||
       range.y + range.h < this.y - this.h);
+  }
+
+  show() {
+    noFill();
+    stroke(255);
+    strokeWeight(1);
+    rect(this.x, this.y, this.w, this.h);
   }
 }
 

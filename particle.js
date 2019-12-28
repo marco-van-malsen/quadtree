@@ -31,16 +31,16 @@ class Particle {
 
   // move particles to other side of the screen
   offScreen() {
-    if (this.x < 0) {
-      this.x = width - this.r;
-    } else if (this.x > width) {
-      this.x = this.r;
+    if (this.x < boundary.l) {
+      this.x = boundary.r - this.r;
+    } else if (this.x > boundary.r) {
+      this.x = boundary.l + this.r;
     }
 
-    if (this.y < header) {
-      this.y = height - this.r;
-    } else if (this.y > height) {
-      this.y = header + this.r;
+    if (this.y < boundary.u) {
+      this.y = boundary.d - this.r;
+    } else if (this.y > boundary.d) {
+      this.y = boundary.u + this.r;
     }
   }
 
@@ -60,6 +60,6 @@ class Particle {
 // add number particles at random location
 function addParticles(count) {
   for (var i = 1; i <= count; i++) {
-    particles[particles.length] = new Particle(random(width), random(header, height));
+    particles[particles.length] = new Particle(random(boundary.l, boundary.r), random(boundary.u, boundary.d));
   }
 }
