@@ -50,11 +50,6 @@ class Particle {
     fill(this.highlight ? 255 : 100);
     ellipse(this.x, this.y, this.d);
   }
-
-  // turn highlight on or off
-  setHighlight(value) {
-    this.highlight = value;
-  }
 }
 
 // add number particles at random location

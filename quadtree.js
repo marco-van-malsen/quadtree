@@ -44,13 +44,6 @@ class Rectangle {
       range.y - range.h > this.y + this.h ||
       range.y + range.h < this.y - this.h);
   }
-
-  show() {
-    noFill();
-    stroke(255);
-    strokeWeight(1);
-    rect(this.x, this.y, this.w, this.h);
-  }
 }
 
 // class for a circle shaped query

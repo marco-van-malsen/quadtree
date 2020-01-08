@@ -47,28 +47,23 @@ function draw() {
   textAlign(RIGHT, CENTER);
   text(int(fps) + " FPS", width - 5, 0.5 * header);
 
-  // show boundary (DEBUG ONLY)
-  // boundary.show();
-
   // setup quad-tree
   var qtree = new QuadTree(boundary, 4);
 
   // turn off highlight, randomly move particle and add particles to quad-tree
   for (var p of particles) {
-    p.setHighlight(false);
+    p.highlight = false;
     p.move();
     p.offScreen();
-    var point = new Point(p.x, p.y, p);
-    qtree.insert(point);
+    qtree.insert(new Point(p.x, p.y, p));
   }
 
   // highlight all particles that are overlapping
   for (var p of particles) {
-    var range = new Circle(p.x, p.y, p.d);
-    var points = qtree.query(range);
+    var points = qtree.query(new Circle(p.x, p.y, p.d));
     for (var point of points) {
       var other = point.userData;
-      if (p !== other && p.intersects(other)) p.setHighlight(true);
+      if (p !== other && p.intersects(other)) p.highlight = true;
       p.render();
     }
   }
